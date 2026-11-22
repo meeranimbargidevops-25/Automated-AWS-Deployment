@@ -1,0 +1,25 @@
+
+name: DevOps Project Workflow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test-website:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get project code
+        uses: actions/checkout@v4
+
+      - name: Check website file
+        run: |
+          if [ -f index.html ]; then
+            echo "Website file found!"
+          else
+            echo "Website file missing!"
+            exit 1
+          fi
