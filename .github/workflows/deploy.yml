@@ -35,12 +35,11 @@ jobs:
           COMMAND_ID=$(aws ssm send-command \
             --instance-ids "${{ vars.EC2_INSTANCE_ID }}" \
             --document-name "AWS-RunShellScript" \
-            --parameters 'commands=["set -e","curl -fsSL https://raw.githubusercontent.com/meeranimbargidevops-25/Automated-AWS-Deployment/main/index.html -o /tmp/index.html","sudo install -o root -g root -m 644 /tmp/index.html /var/www/html/index.html","sudo systemctl reload apache2"]' \
+            --parameters 'commands=["set -e","sudo mkdir -p /var/backups/devops","if [ -f /var/www/html/index.html ]; then sudo cp /var/www/html/index.html /var/backups/devops/index.html.previous; fi","curl -fsSL https://raw.githubusercontent.com/meeranimbargidevops-25/Automated-AWS-Deployment/main/index.html -o /tmp/index.html","sudo install -o root -g root -m 644 /tmp/index.html /var/www/html/index.html","sudo systemctl reload apache2"]' \
             --query "Command.CommandId" \
             --output text)
 
-          
-        echo "Deployment command sent: $COMMAND_ID"
+          echo "Deployment command sent: $COMMAND_ID"
 
           aws ssm wait command-executed \
             --command-id "$COMMAND_ID" \
