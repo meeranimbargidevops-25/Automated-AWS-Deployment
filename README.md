@@ -21,14 +21,36 @@ The main objective is to automate cloud infrastructure provisioning and website 
 
 ## Project Architecture
 
-1. Website source code is maintained in GitHub.
-2. Terraform provisions the AWS infrastructure.
-3. The website is hosted on an Ubuntu EC2 instance.
-4. Apache serves the website to visitors.
-5. GitHub Actions starts the deployment workflow when code is pushed to the main branch.
-6. GitHub Actions authenticates with AWS using OIDC.
-7. AWS Systems Manager executes deployment commands on EC2.
-8. The previous website file is backed up before the new version is deployed.
+
+## Project Architecture
+
+The project consists of two main processes:
+
+### 1. Infrastructure Provisioning
+
+```mermaid
+flowchart TD
+    A[Developer] --> B[Terraform Configuration]
+    B --> C[AWS Cloud]
+    C --> D[EC2 Ubuntu Instance]
+    D --> E[Apache Web Server]
+```
+
+### 2. Automated Website Deployment
+
+```mermaid
+flowchart TD
+    A[Developer] --> B[Push Code to GitHub]
+    B --> C[GitHub Actions Workflow]
+    C --> D[AWS OIDC Authentication]
+    D --> E[IAM Deployment Role]
+    E --> F[AWS Systems Manager SSM]
+    F --> G[EC2 Ubuntu Instance]
+    G --> H[Apache Web Server]
+    H --> I[Deployed Website]
+    I --> J[Website Visitors]
+```
+
 
 ## Project Features
 
