@@ -114,3 +114,4 @@ MCA Student
 ## 10. Project Title
 
 Automated Deployment of a Web Application on AWS EC2 Using Terraform
+Documentation updated
